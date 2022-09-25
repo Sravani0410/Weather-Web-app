@@ -15,9 +15,20 @@ function ForeCast({city,forecast: {forecastday} }) {
       setExpanded(isExpanded ? panel : false);
     };
 
+const forecastSection={
+  width:"90vwl"
+}
+const hourtrack= {
+  display:"flex",
+ alignItems: "center",
+ justifyContent: "space-evenly",
+}
+const progress={
+  width:"70%"
+}
 
   return (
-    <div className='forecastSection'>
+    <div style={forecastSection}>
       forecast for {city}
      {
       forecastday.map((curDateForecast)=>{
@@ -26,44 +37,44 @@ function ForeCast({city,forecast: {forecastday} }) {
         const {maxtemp_c,mintemp_c,daily_chance_of_rain,condition:{icon,text}}=day;
         console.log(maxtemp_c,mintemp_c,daily_chance_of_rain)
         return (
-          console.log(date,day,hour)
-        //   <Accordion expanded={expanded === date} onChange={handleChange(date)}>
-        //   <AccordionSummary
-        //     expandIcon={<ExpandMoreIcon />}
-        //     aria-controls="panel2bh-content"
-        //     id={date}
-        //   >
-        //     <img src={icon}/>
-        //     <Typography sx={{ width: '33%', flexShrink: 0 }}>{date}
-        //     ({text})
-        //     </Typography>
-        //     <Typography sx={{ width: '33%', flexShrink: 0 }}>
-        //       <b>Temp:</b>{mintemp_c} deg to {maxtemp_c} deg
-        //     </Typography>
-        //     <Typography sx={{ width: '33%', flexShrink: 0 }}>
-        //       <b>{daily_chance_of_rain}</b> % of rain possible
-        //     </Typography>
+          // console.log(date,day,hour)
+          <Accordion expanded={expanded === date} onChange={handleChange(date)}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2bh-content"
+            id={date}
+          >
+            <img src={icon}/>
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>{date}
+            ({text})
+            </Typography>
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+              <b>Temp:</b>{mintemp_c} deg to {maxtemp_c} deg
+            </Typography>
+            <Typography sx={{ width: '33%', flexShrink: 0 }}>
+              <b>{daily_chance_of_rain}</b> % of rain possible
+            </Typography>
            
-        //   </AccordionSummary>
-        //   <AccordionDetails>
-        //     {
-        //       hour.map((curHourForCast,index)=>{
-        //         return (
-        //           <div className='hourtrack'>
-        //             <b>{index}:00</b>
-        //             <img src={curHourForCast.condition.icon}/>
-        //             <div className='progress'>
-        //             <LinearProgress variant="determinate" value={(curHourForCast.temp_c*100/maxtemp_c)} />
-        //             {curHourForCast.temp_c} deg
-        //             </div>
-        //             {/* {curHourForCast.chance_of_rain} */}
-        //           </div>
-        //         )
-        //       })
-        //     }
-        //   </AccordionDetails>
+          </AccordionSummary>
+          <AccordionDetails>
+            {
+              hour.map((curHourForCast,index)=>{
+                return (
+                  <div style={hourtrack}>
+                    <b>{index}:00</b> 
+                    <img src={curHourForCast.condition.icon}/>
+                    <div style={progress}>
+                    <LinearProgress variant="determinate" value={(curHourForCast.temp_c*100/maxtemp_c)} />
+                    {curHourForCast.temp_c} deg
+                    </div>
+                    {/* {curHourForCast.chance_of_rain} */}
+                  </div>
+                )
+              })
+            }
+          </AccordionDetails>
 
-        // </Accordion>
+        </Accordion>
         ) 
        
       })
