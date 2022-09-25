@@ -1,22 +1,34 @@
 
-import './App.css';
 import { useEffect, useState } from 'react';
+import './App.css';
+import Current from './components/Current';
+import ForeCast from './components/ForeCast';
 
 const autoCompleteURL="https://api.weatherapi.com/v1/search.json?key=70758a9eb6674695b77144413222409&q="
 
-
+const weatherURL=(city)=>`https://api.weatherapi.com/v1/forecast.json?key=70758a9eb6674695b77144413222409&q=${city}&days=7&aqi=no&alerts=no`
 
 function App() {
+
   const [city,setCity]=useState('')
   const [citySuggestion,setCitySuggestion]=useState([1,2,3,4,5,6,7]);
   const [clicked,setClicked]=useState(false)
+  const [current,setCurrent]=useState([])
+  const [forecast,setForecast]=useState([])
+  const [location,setLocation]=useState('')
 
   const handleClick=async (clickedCity)=>{
     console.log("clicked:",clickedCity)
       setCity(clickedCity);
       setClicked(true);
+
+      const resp=await fetch(weatherURL(city))
+      const data=await resp.json()
+      setCurrent(data.current)
+      setForecast(data.forecast)
+      setLocation(data.location.name)
   }
-  
+
   useEffect(()=>{
     const getDataAfterTimeout=setTimeout(()=>{
       const fetchCitySuggestion=async()=>{
@@ -41,9 +53,11 @@ function App() {
     },1000)
     return ()=>clearTimeout(getDataAfterTimeout)
   },[city])
+
   return (
+
     <div className="App">
-       <div className='header'>
+      <div className='header'>
         Weather app
       </div>
       <div className='app-body'>
@@ -61,7 +75,14 @@ function App() {
            })}
            </div>
         )}
-    
+      
+       {
+        current && <Current current={current} city={location}/>
+       }
+       {
+        forecast && <ForeCast forecast={forecast} city={location}/>
+       }
+        
       </div>
     </div>
   );
