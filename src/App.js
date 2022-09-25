@@ -1,5 +1,8 @@
 
-import { useEffect, useState } from 'react';
+
+// import { LineGraph } from '../src/components/BarChart';
+
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import './App.css';
 import Current from './components/Current';
 import ForeCast from './components/ForeCast';
@@ -15,7 +18,9 @@ function App() {
   const [clicked,setClicked]=useState(false)
   const [current,setCurrent]=useState([])
   const [forecast,setForecast]=useState([])
+  // const [bargraph,setBargraph]=useState([])
   const [location,setLocation]=useState('')
+  
 
   const handleClick=async (clickedCity)=>{
     console.log("clicked:",clickedCity)
@@ -26,12 +31,13 @@ function App() {
       const data=await resp.json()
       setCurrent(data.current)
       setForecast(data.forecast)
+      // console.log(setBargraph)
       setLocation(data.location.name)
   }
 
   useEffect(()=>{
     const getDataAfterTimeout=setTimeout(()=>{
-      const fetchCitySuggestion=async()=>{
+      const fetchCitySuggestion=async () =>{
         const result=await fetch(autoCompleteURL+city)
         const data=await result.json();
         const citySuggestionData=data.map((curData)=>
@@ -83,7 +89,10 @@ function App() {
        {
         forecast && <ForeCast forecast={forecast} city={location}/>
        }
-        
+       
+       {/* {
+        bargraph && <LineGraph/>
+       } */}
       </div>
     </div>
   );

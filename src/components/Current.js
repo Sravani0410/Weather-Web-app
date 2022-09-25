@@ -9,9 +9,13 @@ function Current({current,city}) {
         <br/>
         <br/>
         <b>Current weather</b>
+        
         <div className='currentBody'>
             {/* <img src={current.condition.icon}/> */}
+             
+            {/* <img src={current.condition.icon}/> */}
             {/* <span>{current.condition.text}</span> */}
+            <span><b>feel-like:</b>{current.feelslike_c} °deg</span>
             <span><b>Temp:</b>{current.temp_c}°deg</span>
             <span><b>Pressure:</b>{current.pressure_mb} hpa</span>
             <span><b>Humidity:</b>{current.humidity} %</span>
