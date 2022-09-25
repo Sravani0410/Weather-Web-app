@@ -49,6 +49,7 @@ function App() {
       else{
         setCitySuggestion([])
         setClicked(false)
+      
       }
     },1000)
     return ()=>clearTimeout(getDataAfterTimeout)
