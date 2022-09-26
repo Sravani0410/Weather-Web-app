@@ -14,7 +14,7 @@ const weatherURL=(city)=>`https://api.weatherapi.com/v1/forecast.json?key=70758a
 function App() {
 
   const [city,setCity]=useState('')
-  const [citySuggestion,setCitySuggestion]=useState([1,2,3,4,5,6,7]);
+  const [citySuggestion,setCitySuggestion]=useState([]);
   const [clicked,setClicked]=useState(false)
   const [current,setCurrent]=useState([])
   const [forecast,setForecast]=useState([])
